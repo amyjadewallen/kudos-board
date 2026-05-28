@@ -199,7 +199,13 @@ const S = `
 const EMPTY_FORM = { to: "", from: "", message: "", category: "", team: "" };
 
 export default function App() {
-  const sessionId = useRef(`s_${Date.now()}_${Math.random().toString(36).slice(2)}`);
+const sessionId = useRef((() => {
+    const stored = localStorage.getItem('kudos-session-id');
+    if (stored) return stored;
+    const newId = `s_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    localStorage.setItem('kudos-session-id', newId);
+    return newId;
+  })());
   const [kudos,    setKudos]    = useState([]);
   const [form,     setForm]     = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
@@ -408,7 +414,7 @@ export default function App() {
                   onProfile={n => openProf("person", n)}
                   onTeamProfile={n => openProf("team", n)}
                   onComment={setCm} onReact={react} myR={myR}
-                  isOwn={k.sessionId === sessionId.current}
+                  iisOwn={k.session_id === sessionId.current}
                   onEdit={startEdit} onDelete={deleteKudo}
                 />
               ))}
