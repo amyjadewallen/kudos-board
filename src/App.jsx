@@ -525,7 +525,7 @@ const sessionId = useRef((() => {
                         onProfile={n => openProf("person", n)}
                         onTeamProfile={n => openProf("team", n)}
                         onComment={setCm} onReact={react} myR={myR}
-                        isOwn={k.sessionId === sessionId.current}
+                        isOwn={k.session_id === sessionId.current}
                         onEdit={startEdit} onDelete={deleteKudo}
                       />
                     ))
